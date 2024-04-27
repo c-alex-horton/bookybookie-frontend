@@ -7,9 +7,10 @@ import {
     TableRow
 } from "@/components/ui/table"
 
+import Link from "next/link"
+
 export default function BookTable({books}: {books: Book[]}) {
     return (
-        <>
         <Table>
             <TableHeader>
                 <TableRow>
@@ -22,18 +23,19 @@ export default function BookTable({books}: {books: Book[]}) {
             </TableHeader>
             <TableBody>
                 {books.map((book) => (
-                    <TableRow key={book.id}>
-                        <TableCell>{book.title}</TableCell>
-                        <TableCell>{book.authors.map((author) => author.name).join(", ")}</TableCell>
-                        <TableCell>{book.genres.map((genre) => genre.name).join(", ")}</TableCell>
-                        <TableCell>{book.status}</TableCell>
-                        <TableCell>{new Date(book.publicationDate).toLocaleDateString()}</TableCell>
-                    </TableRow>
+                    <Link key={book.id} href={`/book/${book.id}`} legacyBehavior={true}>
+                        <TableRow >
+                            <TableCell>{book.title}</TableCell>
+                            <TableCell>{book.authors.map((author) => author.name).join(", ")}</TableCell>
+                            <TableCell>{book.genres.map((genre) => genre.name).join(", ")}</TableCell>
+                            <TableCell>{book.status}</TableCell>
+                            <TableCell>{new Date(book.publicationDate).toLocaleDateString()}</TableCell>
+                        </TableRow>
+                    </Link>
                 ))}
             </TableBody>
 
         </Table>
-        </>
     )
 }
 
